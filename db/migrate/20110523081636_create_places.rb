@@ -1,7 +1,7 @@
 class CreatePlaces < ActiveRecord::Migration
   def self.up
     create_table :places do |t|
-      t.String :name
+      t.string :name
       t.string :status
 
       t.timestamps

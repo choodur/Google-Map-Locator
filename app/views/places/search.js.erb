@@ -1,0 +1,8 @@
+
+
+
+<%if @place != nil%>
+initialize(<%= @place.latitude%>, <%= @place.longitude%>);
+<% else %>
+  alert('Location not found.');
+<% end %>

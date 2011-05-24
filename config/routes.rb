@@ -1,6 +1,17 @@
 Googlemap::Application.routes.draw do
+  devise_for :admins
+  
   root :to => 'places#index'
-  resources :places
+  
+  namespace :admins do
+    root :to => 'places#index'
+  end
+  
+  resources :places do
+    collection do
+      get 'search'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,23 @@
+$('#flash').html('')
+
+$('#flash').html('<% flash[:notice] %>')
+
+var locations = []
+<% @places.each do |place|  %> 
+   locations.push('<%= place.name %>') 
+<% end %>
+
+<script type="text/javascript">
+(function($) {
+  $('#search-button').click(function(){
+    var location = $('#location').val();
+    <% p = Place.find_by_name('%> location <%') %>
+    <%if p != nil%>
+        initialize(<%= p.latitude %>,<%= p.lo%>)
+    <% end %>
+  });
+
+}(jQuery);
+ 
+</script>
+<div id="input">

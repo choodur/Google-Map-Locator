@@ -1,73 +1,83 @@
+<% if admin_signed_in? %>
 
 <h1>Admin</h1>
 
-<% if @places == []%>
+  <% if @places == []%>
+
   There are no locations yet.
-<% else %>
+  
+  <% else %>
+
 <table> 
-  <% @places.each do |place| %>
+  <tr>
+    <th colspan="4">Confirmed Places</th>
+  </tr>
+    <% @places.each do |place| %>
   <tr>
     <td><%= place.name %></td>
     <td><%= link_to 'Edit', edit_place_path(place)%></td>
     <td><%= link_to 'Delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
   </tr>
-  <% end %>
+  
+    <% end %>
+  
 </table>  
+
+  <% end %>
+
+
+  <% if @suggested == []%>
+
+  There are no suggested locations.
+  
+  <% else %>
+
+<table> 
+  <tr>
+    <th colspan="4">Suggested Places</th>
+  </tr>
+    <% @suggested.each do |place| %>
+  <tr>
+    <td><%= place.name %></td>
+    
+    <td><%= link_to 'Edit', edit_place_path(place)%></td>
+    <td><%= link_to 'Delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
+  </tr>
+  
+    <% end %>
+    
+</table>  
+
+  <% end %>
+
 <% end %>
 
-<%= link_to 'Add New Place', new_place_path %>
 
-<script type="text/javascript">
-function oc(a)
-{
-  var o = {};
-  for(var i=0;i<a.length;i++)
-  {
-    o[a[i]]='';
-  }
-  return o;
-}
+<% title = admin_signed_in? ? "Add New Place" : "Suggest a place" %>
+<%= link_to title, new_place_path %>
 
-
-var locations = []
-
-    <% @places.each do |place|  %> 
-      locations.push('<%= place.name %>') 
-    <% end %> 
-
-
-function codeAddress() {
-    var address = document.getElementById("location").value;
   
-    if (address in oc(locations)) 
-    {  
-  
-  
-    
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-    
-    
-    }
-    
-    else
-      alert("Sorry, location not found.");
-  }
-</script>
-<div id="input">
-    Enter Location:<input type="text" id="location" /><button type="button" id="search-button" onclick="codeAddress()">Search</button>
   </div>  
-  <div id="map_canvas" style="width: 50%; height: 50%; margin: auto;"></div>
-  
-  <%= link_to 'Suggest a place', new_place_path %>
-  
-  
+ 
+ 
+ <%= form_for @place, :url => { :action => :create }, :remote => true do |p| %>
+<%= render :partial => 'form',  :locals => { :p => p } %>
+<% end %>
+ 
+<span id="flash"></span>  
+<div id="user_nav">
+  <% if not admin_signed_in? %>
+    <%= link_to "Admin Sign In", new_admin_session_path %>
+  <% else %>
+    Signed in as <%= current_admin.email %>. Not you?
+    <%= link_to "Sign out", destroy_admin_session_path %>
+  <% end %>
+</div>
+
+
+
+
+<%= form_tag(search_places_path, :remote => true, :method => :get) do%>
+  <%= text_field_tag 'location_name' %>
+  <%= submit_tag 'Search' %>
+ <% end %>
