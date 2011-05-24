@@ -1,0 +1,5 @@
+<h1>Edit <% @place.name %></h1>
+
+<%= form_for @place, :url => { :action => :update} do |p| %>
+<%= render :partial => 'form',  :locals => { :p => p } %>
+<% end %>

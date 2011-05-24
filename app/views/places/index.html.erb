@@ -1,0 +1,73 @@
+
+<h1>Admin</h1>
+
+<% if @places == []%>
+  There are no locations yet.
+<% else %>
+<table> 
+  <% @places.each do |place| %>
+  <tr>
+    <td><%= place.name %></td>
+    <td><%= link_to 'Edit', edit_place_path(place)%></td>
+    <td><%= link_to 'Delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
+  </tr>
+  <% end %>
+</table>  
+<% end %>
+
+<%= link_to 'Add New Place', new_place_path %>
+
+<script type="text/javascript">
+function oc(a)
+{
+  var o = {};
+  for(var i=0;i<a.length;i++)
+  {
+    o[a[i]]='';
+  }
+  return o;
+}
+
+
+var locations = []
+
+    <% @places.each do |place|  %> 
+      locations.push('<%= place.name %>') 
+    <% end %> 
+
+
+function codeAddress() {
+    var address = document.getElementById("location").value;
+  
+    if (address in oc(locations)) 
+    {  
+  
+  
+    
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+    
+    
+    }
+    
+    else
+      alert("Sorry, location not found.");
+  }
+</script>
+<div id="input">
+    Enter Location:<input type="text" id="location" /><button type="button" id="search-button" onclick="codeAddress()">Search</button>
+  </div>  
+  <div id="map_canvas" style="width: 50%; height: 50%; margin: auto;"></div>
+  
+  <%= link_to 'Suggest a place', new_place_path %>
+  
+  

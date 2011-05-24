@@ -1,0 +1,7 @@
+<h1>Add New Place</h1>
+
+<%= form_for @place, :url => { :action => :create} do |p| %>
+<%= render :partial => 'form',  :locals => { :p => p } %>
+<% end %>
+
+<%= link_to 'Back', places_path%>
