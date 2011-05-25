@@ -9,18 +9,9 @@ alert(error_msg);
 
 <% else %>
 
-
-<% verb = ""; verb = admin_signed_in? ? "added" : "suggested" %>
-
-alert("<%= @place.name %> <%= verb %> to places list.");
-
-$('#new_place')[0].reset();
-
 $('#approved-list').html("<%= escape_javascript render 'approvedlist'%>");
 
-$('#approved-table tr:last').focus();
-
-
+$('#add_lat').attr('id', 'place_latitude');
+$('#add_long').attr('id', 'place_longitude');
+$('#approved-list').prev().html('Confirmed Places');
 <% end %>
-
-

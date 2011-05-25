@@ -1,0 +1,5 @@
+$('#approved-list').html("<%= escape_javascript render 'approvedlist'%>");
+
+$('#add_lat').attr('id', 'place_latitude');
+$('#add_long').attr('id', 'place_longitude');
+$('#approved-list').prev().html('Confirmed Places');

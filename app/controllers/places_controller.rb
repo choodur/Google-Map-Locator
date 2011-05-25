@@ -1,12 +1,13 @@
 class PlacesController < ApplicationController
   before_filter :get_places
-  before_filter :authenticate_admin!, :except => [:index, :new, :create]
+  before_filter :authenticate_admin!, :except => [:index, :new, :create, :search]
   
   def index
     @place = Place.new
     
     respond_to do |format|
       format.html
+      format.js
      end
   end
   
@@ -25,20 +26,11 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new params[:place]
     set_status
+    get_places
     
-    
+    @place.save
     respond_to do |format|
-      if @place.save
-        flash[:notice] = "Added new place."
-        format.js
-        format.html { redirect_to places_path }
-        
-        
-      else
-        format.html { render :action => "new" }
-        flash[:error] = "Wrong again"
-        format.js
-      end
+      format.js
     end
   end
   
@@ -48,9 +40,11 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       if @place.update_attributes(params[:place])
-        format.html { redirect_to places_path }
+        #format.html { redirect_to places_path }
+        format.js
       else
-        format.html { render :action => "edit" }
+        #format.html { render :action => "edit" }
+        format.js
       end
     end
   end
@@ -60,13 +54,19 @@ class PlacesController < ApplicationController
     @place.destroy
     
     respond_to do |format|
-      format.html { redirect_to places_path }
+      format.js
     end
     
   end
 
   def search
     @place = Place.find_by_name(params[:location_name])  
+  end
+
+  def approve
+    @place = Place.find(params[:id])
+    set_status
+    @place.update_attributes params[:place]
   end
 
   private

@@ -1,0 +1,20 @@
+  <% if @suggested == []%>
+
+  There are no suggested locations.
+  
+  <% else %>
+
+<table> 
+    <% @suggested.each do |place| %>
+  <tr>
+    <td><%= place.name %></td>
+    
+    <td><%= link_to 'approve', approve_place_path(place), :remote => :true %></td>
+    <td><%= link_to 'delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
+  </tr>
+  
+    <% end %>
+    
+</table>  
+
+  <% end %>

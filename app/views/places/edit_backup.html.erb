@@ -1,0 +1,14 @@
+<script type="text/javascript">
+  lat = <%= @place.latitude %>; 
+  lng = <%= @place.longitude %>;
+</script>
+<div class="grid_3">
+  <h1>Edit <% @place.name %></h1>
+
+  <%= form_for @place, :url => { :action => :update} do |p| %>
+    <%= render :partial => 'form',  :locals => { :p => p } %>
+  <% end %>
+<%= link_to 'Back', places_path%>  
+</div>
+
+<%= render :partial => 'map' %>

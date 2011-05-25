@@ -1,0 +1,3 @@
+alert("<%= @place.name %> approved.");
+$('#approved-list').html("<%= escape_javascript render 'approvedlist'%>");
+$('#suggested-list').html("<%= escape_javascript render 'suggestedlist'%>")

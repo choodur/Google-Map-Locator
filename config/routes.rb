@@ -11,6 +11,10 @@ Googlemap::Application.routes.draw do
     collection do
       get 'search'
     end
+    
+    member do
+      get 'approve'
+    end
   end
 
   # The priority is based upon order of creation:

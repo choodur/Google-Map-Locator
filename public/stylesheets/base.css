@@ -1,0 +1,70 @@
+/*div{ border: 1px solid red} #518ED0*/
+body {
+  font-size: 14px;
+  background: #F2EFE9;
+  color: #444;
+}
+
+
+h1, h2, h3 {
+  color: #395A95;
+  border-bottom: 1px solid #395AAA;
+  padding-left: 4px;
+}
+
+
+a {
+  color: #fff;
+  text-decoration: none;
+  font: italic bold 14px Georgia;
+  background: #395AAA;
+  line-height:32px;
+  padding:2px;
+  border: 2px solid #395AAA;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+a:hover {
+  background: #518ED0;
+  border: 2px solid #518ED0;
+}
+
+input[type=text], input[type=password] {
+  width:200px;
+}
+
+input[type=submit] {
+  color: #395AAA;
+  font-weight: bold;
+  background: #fff;
+  padding:2px;
+  border: 2px solid #395AAA;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+input[type=submit]:hover {
+  background: #eee;
+  cursor:pointer;
+}
+
+#map_canvas { 
+  height: 100%; 
+  border:10px solid #395AAA;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+
+#map_canvas a{
+  color: #fff;
+  background: none;
+  line-height:12px;
+  padding: 0;
+  border: 0;
+  font-size: 10px;
+}
+.places-list{
+  height:188px;
+  overflow: auto;
+}

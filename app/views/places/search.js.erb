@@ -1,8 +1,10 @@
-
-
-
-<%if @place != nil%>
-initialize(<%= @place.latitude%>, <%= @place.longitude%>);
+<%if @place != nil %>
+ <% if @place.status == 'approved'%>
+  initialize(<%= @place.latitude%>, <%= @place.longitude%>);
+ <% else%>
+  alert('Location of that place has been suggested but not yet approved.');
+ <% end %>
 <% else %>
   alert('Location not found.');
 <% end %>
+

@@ -1,0 +1,8 @@
+lat = <%= @place.latitude %>; 
+lng = <%= @place.longitude %>;
+
+$('#place_latitude').attr('id', 'add_lat');
+$('#place_longitude').attr('id', 'add_long');
+$('#approved-list').prev().html('Edit Place');
+$('#approved-list').html('<%= escape_javascript render 'editform' %>');
+

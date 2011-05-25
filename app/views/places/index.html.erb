@@ -1,83 +1,77 @@
+
+<div class="grid_3">
+  <h2>Search Location</h2>
+  <%= form_tag(search_places_path, :remote => true, :method => :get) do%>
+    <%= text_field_tag 'location_name' %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+
+  <% title = admin_signed_in? ? "add new place" : "suggest a place" %>
+  <a href="#" id="add-suggest-button"><%= title %></a>
+
+  <div id="add-suggest-form">
+  <%= form_for @place, :url => { :action => :create }, :remote => true do |p| %>
+    <%= render :partial => 'form',  :locals => { :p => p } %>
+  <% end %>
+  </div>
+
+  <div id="user_nav">
+  
+  <% if not admin_signed_in? %>
+  <a href="#" id="sign-in-button">Admin Sign In</a> 
+
+  <div id="sign-in-form"> 
+  <%= form_for("admin", :url => admin_session_path) do |f| %>
+  <%= f.label :email %><br/>
+  <%= f.text_field :email %><br/>
+  <%= f.label :password %><br/>
+  <%= f.password_field :password %><br/>
+  <%= f.check_box :remember_me %>
+  <%= f.label :remember_me %><br/>
+  <%= f.submit 'Sign in' %><br/>
+  <%= link_to "Forgot your password?", new_password_path('admin') %>
+  </div>
+<% end %>
+  
+  <% else %>
+    Signed in as <%= current_admin.email %>.<br/> Not you?
+    <%= link_to "Sign out", destroy_admin_session_path %>
+  <% end %>
+  
+  </div>
+  
+</div>
+
+<%= render :partial => 'map' %>
+
+<div class="grid_3 prefix_0">
+  
 <% if admin_signed_in? %>
 
 <h1>Admin</h1>
-
-  <% if @places == []%>
-
-  There are no locations yet.
-  
-  <% else %>
-
-<table> 
-  <tr>
-    <th colspan="4">Confirmed Places</th>
-  </tr>
-    <% @places.each do |place| %>
-  <tr>
-    <td><%= place.name %></td>
-    <td><%= link_to 'Edit', edit_place_path(place)%></td>
-    <td><%= link_to 'Delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
-  </tr>
-  
-    <% end %>
-  
-</table>  
-
-  <% end %>
-
-
-  <% if @suggested == []%>
-
-  There are no suggested locations.
-  
-  <% else %>
-
-<table> 
-  <tr>
-    <th colspan="4">Suggested Places</th>
-  </tr>
-    <% @suggested.each do |place| %>
-  <tr>
-    <td><%= place.name %></td>
-    
-    <td><%= link_to 'Edit', edit_place_path(place)%></td>
-    <td><%= link_to 'Delete', place, :confirm => 'Are you sure?', :method => :delete%></td>
-  </tr>
-  
-    <% end %>
-    
-</table>  
-
-  <% end %>
-
-<% end %>
-
-
-<% title = admin_signed_in? ? "Add New Place" : "Suggest a place" %>
-<%= link_to title, new_place_path %>
-
-  
-  </div>  
+<h3>Confirmed Places</h3>
  
- 
- <%= form_for @place, :url => { :action => :create }, :remote => true do |p| %>
-<%= render :partial => 'form',  :locals => { :p => p } %>
-<% end %>
- 
-<span id="flash"></span>  
-<div id="user_nav">
-  <% if not admin_signed_in? %>
-    <%= link_to "Admin Sign In", new_admin_session_path %>
-  <% else %>
-    Signed in as <%= current_admin.email %>. Not you?
-    <%= link_to "Sign out", destroy_admin_session_path %>
-  <% end %>
+<div class="places-list" id="approved-list">
+<%= render :partial => 'approvedlist' %>
 </div>
 
 
+<h3>Suggested Places</h3>
+<div class="places-list" id="suggested-list">
+<%= render :partial => 'suggestedlist' %>
+</div>
+<% else %>
+<h3>Confirmed Places</h3>
+<table id="approved-table"> 
+    <% @places.each do |place| %>
+  <tr>
+    <td><%= place.name %></td>
+  </tr>
+  
+    <% end %>
+  
+</table> 
+<% end %>
 
+</end>
 
-<%= form_tag(search_places_path, :remote => true, :method => :get) do%>
-  <%= text_field_tag 'location_name' %>
-  <%= submit_tag 'Search' %>
- <% end %>

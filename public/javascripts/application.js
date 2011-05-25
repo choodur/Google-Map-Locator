@@ -68,3 +68,29 @@ function codeAddress(location) {
     else
       alert("Sorry, location not found.");
   }
+  
+$(document).ready(function()
+{
+  initialize(lat, lng);
+  
+  $addform = $('#add-suggest-form');
+  $addform.hide();
+  $signinform = $('#sign-in-form');
+  $signinform.hide();
+  
+  $('#add-suggest-button').click(function()
+  {
+    if($addform.is(':visible') == false)
+      $addform.slideDown();
+    else
+      $addform.slideUp();
+  });
+
+  $('#sign-in-button').click(function()
+  {
+    if($signinform.is(':visible') == false)
+      $signinform.slideDown();
+    else
+      $signinform.slideUp();
+  });
+});
