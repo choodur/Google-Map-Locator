@@ -9,6 +9,10 @@ alert(error_msg);
 
 <% else %>
 
+
+alert('Updated <%= @place.name %>');
+
+
 $('#approved-list').html("<%= escape_javascript render 'approvedlist'%>");
 
 $('#add_lat').attr('id', 'place_latitude');
