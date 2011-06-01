@@ -40,6 +40,7 @@ input[type=submit] {
   background: #fff;
   padding:2px;
   border: 2px solid #395AAA;
+  margin: 10px 0;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
 }
@@ -67,4 +68,18 @@ input[type=submit]:hover {
 .places-list{
   height:188px;
   overflow: auto;
+}
+
+#approved-table, #suggested-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#approved-table td, #suggested-table td{
+ padding: 2px 4px;
+}
+
+.odd {
+  background: #fff;
+  color: #333;
 }

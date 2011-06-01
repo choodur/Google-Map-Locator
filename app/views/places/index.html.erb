@@ -64,7 +64,7 @@
 <h3>Confirmed Places</h3>
 <table id="approved-table"> 
     <% @places.each do |place| %>
-  <tr>
+  <tr class="<%= cycle("odd", "")%>">
     <td><%= place.name %></td>
   </tr>
   

@@ -6,7 +6,7 @@
   
 <table id="approved-table"> 
     <% @places.each do |place| %>
-  <tr>
+  <tr class="<%= cycle("odd", "")%>">
     <td><%= place.name %></td>
     <td><%= link_to 'edit', edit_place_path(place), :remote => true%></td>
     <td><%= link_to 'delete', place, :confirm => "Are you sure you want to delete #{place.name}?", :method => :delete, :remote => true %></td>

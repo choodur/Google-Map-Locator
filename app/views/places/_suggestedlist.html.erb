@@ -6,7 +6,7 @@
 
 <table> 
     <% @suggested.each do |place| %>
-  <tr>
+  <tr class="<%= cycle("odd", "")%>">
     <td><%= place.name %></td>
     
     <td><%= link_to 'approve', approve_place_path(place), :remote => :true %></td>
